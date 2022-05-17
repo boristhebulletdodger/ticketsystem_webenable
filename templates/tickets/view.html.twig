@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        
+        <div class="col-md-8 offset-md-2">
+
+            <h3 class="mt-5 mb-5">Ticket #{{ ticket.id }}</h3>
+
+            <h5>{{ ticket.title }}</h5>
+
+            <p>{{ ticket.content }}</p>
+
+            <a class="btn btn-danger mt-3" href="{{ path('tickets') }}">Back</a>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

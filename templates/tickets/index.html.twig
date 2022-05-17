@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tickets{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-10 offset-md-1">
+
+            <h3 class="mt-5 mb-3">Tickets (open)</h3>
+
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Content</th>
+                <th scope="col">Status</th>
+                <th scope="col">Created</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in list %}
+                    <tr>
+                        <th scope="row">{{ data.id }}</th>
+                        <td>{{ data.title }}</td>
+                        <td>{{ data.content[:128] ~ '...' }}</td>
+                        <td>{{ data.status }}</td>
+                        <td>{{ data.getDateCreated()|date('Y-m-d H:m:s') }}</td>
+                        <td><a class="btn btn-secondary" href="{{ path('view',{'id':data.id }) }}">View</a></td>
+                        <td><a class="btn btn-danger" href="{{ path('close',{'id':data.id }) }}">Close</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="{{ path('create')}}">Create new ticket</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
